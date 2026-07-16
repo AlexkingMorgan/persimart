@@ -1,10 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PersiMart</title>
+
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -15,56 +20,179 @@
     .wrap {
       max-width: 900px;
       margin: 0 auto;
-      padding: 40px 24px;
+      padding: 28px 24px 60px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 50px;
+    }
+
+    .language-button {
+      border: 1px solid #7a2e2e;
+      background: white;
+      color: #7a2e2e;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
     h1 {
-      font-size: 48px;
-      margin-bottom: 16px;
+      font-size: 52px;
+      margin: 0 0 18px;
     }
 
-    p {
-      font-size: 20px;
-      line-height: 1.6;
+    .lead {
+      font-size: 22px;
+      line-height: 1.7;
+      max-width: 760px;
     }
 
     .button {
       display: inline-block;
-      margin-top: 20px;
-      padding: 14px 22px;
+      margin-top: 22px;
+      padding: 15px 24px;
       background: #7a2e2e;
       color: white;
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 11px;
+      font-size: 18px;
       font-weight: bold;
     }
 
     .card {
-      margin-top: 30px;
-      padding: 24px;
+      margin-top: 38px;
+      padding: 30px;
       background: white;
-      border-radius: 16px;
+      border-radius: 18px;
+    }
+
+    .card h2 {
+      font-size: 30px;
+      margin-top: 0;
+    }
+
+    .card p {
+      font-size: 20px;
+      line-height: 1.7;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .persian {
+      direction: rtl;
+      text-align: right;
+      font-family: Arial, Tahoma, sans-serif;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 42px;
+      }
+
+      .lead {
+        font-size: 19px;
+      }
+
+      .card {
+        padding: 24px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <h1>PersiMart</h1>
 
-    <p>
-      Hard-to-find cultural products for Canadians and immigrant communities.
-    </p>
-
-    <a class="button" href="mailto:info@persimart.ca?subject=Product Request">
-      Request a Product
-    </a>
-
-    <div class="card">
-      <h2>Can't find it in Canada?</h2>
-      <p>
-        Send us the product name or photo. We will validate demand and explore sourcing options.
-      </p>
+    <div class="topbar">
+      <button class="language-button" onclick="toggleLanguage()">
+        فارسی
+      </button>
     </div>
+
+    <main id="english-content">
+      <h1>PersiMart</h1>
+
+      <p class="lead">
+        Hard-to-find cultural products for Canadians and immigrant communities.
+      </p>
+
+      <a
+        class="button"
+        href="mailto:info@persimart.ca?subject=Product Request">
+        Request a Product
+      </a>
+
+      <div class="card">
+        <h2>Can't find it in Canada?</h2>
+
+        <p>
+          Send us the product name, brand or photo.
+          We will validate demand and explore sourcing options.
+        </p>
+      </div>
+    </main>
+
+    <main id="persian-content" class="persian hidden">
+      <h1>پرسی‌مارت</h1>
+
+      <p class="lead">
+        محصولات فرهنگی و خاص برای همه کانادایی‌ها،
+        به‌ویژه خانواده‌ها و جوامع مهاجر.
+      </p>
+
+      <a
+        class="button"
+        href="mailto:info@persimart.ca?subject=درخواست محصول">
+        درخواست محصول
+      </a>
+
+      <div class="card">
+        <h2>محصول موردنظرتان را در کانادا پیدا نمی‌کنید؟</h2>
+
+        <p>
+          نام محصول، برند یا عکس آن را برای ما ارسال کنید.
+          ما تقاضای بازار و امکان تأمین آن را بررسی می‌کنیم.
+        </p>
+      </div>
+    </main>
+
   </div>
+
+  <script>
+    let currentLanguage = "en";
+
+    function toggleLanguage() {
+      const englishContent =
+        document.getElementById("english-content");
+
+      const persianContent =
+        document.getElementById("persian-content");
+
+      const languageButton =
+        document.querySelector(".language-button");
+
+      if (currentLanguage === "en") {
+        englishContent.classList.add("hidden");
+        persianContent.classList.remove("hidden");
+        languageButton.textContent = "English";
+        document.documentElement.lang = "fa";
+        document.documentElement.dir = "rtl";
+        currentLanguage = "fa";
+      } else {
+        persianContent.classList.add("hidden");
+        englishContent.classList.remove("hidden");
+        languageButton.textContent = "فارسی";
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+        currentLanguage = "en";
+      }
+    }
+  </script>
 </body>
 </html>
